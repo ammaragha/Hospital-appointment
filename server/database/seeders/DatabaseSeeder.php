@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             [
                 AdminSedder::class,
                 SpecialitiesSeeder::class,
+                SettingsSeeder::class,
             ]
         );
 

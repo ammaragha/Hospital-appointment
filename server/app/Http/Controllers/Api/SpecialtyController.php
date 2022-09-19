@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Specialty;
+use App\Http\Resources\Speciality\SpecialityResource;
+use App\Models\Speciality;
+use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 
 class SpecialtyController extends Controller
 {
+    use ResponseTrait;
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +18,8 @@ class SpecialtyController extends Controller
      */
     public function index()
     {
-        //
+        $specialties = Speciality::get();
+        return $this->succWithData(SpecialityResource::collection($specialties), 'All specialties');
     }
 
     /**
@@ -35,7 +39,7 @@ class SpecialtyController extends Controller
      * @param  \App\Models\Specialty  $specialty
      * @return \Illuminate\Http\Response
      */
-    public function show(Specialty $specialty)
+    public function show(Speciality $specialty)
     {
         //
     }
@@ -47,7 +51,7 @@ class SpecialtyController extends Controller
      * @param  \App\Models\Specialty  $specialty
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Specialty $specialty)
+    public function update(Request $request, Speciality $specialty)
     {
         //
     }
@@ -58,7 +62,7 @@ class SpecialtyController extends Controller
      * @param  \App\Models\Specialty  $specialty
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Specialty $specialty)
+    public function destroy(Speciality $specialty)
     {
         //
     }

@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Reservation\ReservationRequest;
+use App\Http\Resources\Reservation\ReservationResource;
 use App\Models\Reservation;
+use App\Traits\ResponseTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
+    use ResponseTrait;
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,9 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('viewAny', Reservation::class);
+        $reservation = Reservation::orderBy('date', 'Desc')->get();
+        return $this->succWithData(ReservationResource::collection($reservation), 'All reservations');
     }
 
     /**
@@ -24,42 +32,61 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ReservationRequest $request)
     {
-        //
+        $reservation = new Reservation();
+
+        try {
+            $reservation->user_id = Auth::user()->id;
+            $reservation->special_id = $request->special_id;
+            $reservation->time = date('H:i', strtotime($request->time));
+            $reservation->date = $request->date;
+
+            $reservation->save();
+            return $this->succWithData(new ReservationResource($reservation), 'Reservation has beed saved');
+        } catch (\Exception $e) {
+            return $this->errMsg('Something wrong with your data');
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function show(Reservation $reservation)
+    public function todayReservations()
     {
-        //
+        $this->authorize('viewAny', Reservation::class);
+        $today = Carbon::today()->toDateString();
+        $todayReservations = Reservation::where('date', $today)->get();
+        return $this->succWithData(ReservationResource::collection($todayReservations), 'All today reservations');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Reservation  $reservation
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Reservation $reservation)
-    {
-        //
-    }
 
     /**
-     * Remove the specified resource from storage.
+     * Display the specified resource.
      *
-     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reservation $reservation)
+    public function waitedForUser()
     {
-        //
+        $today = Carbon::yesterday()->toDateString();
+        $todayReservations = Reservation::where('date',">", $today)
+            ->where('user_id', Auth::user()->id)
+            ->get();
+        return $this->succWithData(ReservationResource::collection($todayReservations), 'All waited reservations');
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function allForUser()
+    {
+
+        $todayReservations = Reservation::where('user_id', Auth::user()->id)->get();
+        return $this->succWithData(ReservationResource::collection($todayReservations), 'All your reservations');
     }
 }
