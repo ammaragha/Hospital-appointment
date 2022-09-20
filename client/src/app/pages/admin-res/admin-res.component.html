@@ -1,0 +1,24 @@
+<button class="btn btn-primary" (click)="today()">Today</button>
+<button class="btn btn-secondary" (click)="all()">All</button>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Specialty</th>
+            <th scope="col">Pationt name</th>
+            <th scope="col">Time</th>
+            <th scope="col">Date</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let rese of reservations; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{rese.speciality.name}}</td>
+            <td>{{rese.user.name}}</td>
+            <td>{{rese.time}}</td>
+            <td>{{rese.date}}</td>
+        </tr>
+        
+    </tbody>
+</table>

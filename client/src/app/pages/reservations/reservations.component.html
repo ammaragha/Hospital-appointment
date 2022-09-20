@@ -1,0 +1,55 @@
+<button (click)="openRe()" class="btn btn-primary" >Reserve</button>
+<button (click)="all()" class="btn btn-secondary">My reserveation</button>
+<button (click)="waited()" class="btn btn-secondary">My waited reserveation</button>
+
+<form *ngIf="re" [formGroup]="reserveForm" (ngSubmit)="reserve()">
+    <div class="row">
+        <div class="col-6">
+
+            <label for="">Date @ time</label>
+
+            <div class="input-group mb-3">
+                <input formControlName="date" type="date" class="form-control" placeholder="Username"
+                    aria-label="Username">
+                <span class="input-group-text">@</span>
+                <input formControlName="time" type="time" class="form-control" placeholder="Server" aria-label="Server"
+                    id="time">
+            </div>
+            <div *ngIf="errors?.time" class="text-danger">{{errors.time}}</div>
+            <div *ngIf="errors?.date" class="text-danger">{{errors.date}}</div>
+        </div>
+        <div class="col-6">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let special of specialities; let i = index">
+                    <label>
+                        <input class="form-check-input" type="radio" formControlName="special_id"
+                            value="{{special.id}}">
+                        <span>{{special.name}}</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Reserve!</button>
+</form>
+
+<table *ngIf="!re" class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Specialty</th>
+            <th scope="col">Time</th>
+            <th scope="col">Date</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let rese of reservations; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{rese.speciality.name}}</td>
+            <td>{{rese.time}}</td>
+            <td>{{rese.date}}</td>
+        </tr>
+        
+    </tbody>
+</table>

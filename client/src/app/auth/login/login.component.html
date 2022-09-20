@@ -1,0 +1,16 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <input formControlName="email" type="email" class="form-control" id="exampleFormControlInput1"
+            placeholder="name@example.com">
+
+        <div class="form-text text-danger">
+            <small *ngIf="errors?.date">{{ errors?.date }}</small>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Password</label>
+        <input formControlName="password" class="form-control" type="password" name="password" id="">
+    </div>
+    <button class="btn btn-primary" type="submit">Login</button>
+</form>
