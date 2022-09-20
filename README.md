@@ -7,20 +7,33 @@
 ```bash
 $ cd ./server
 ```
+```bash
 $ composer install
+```
+```bash
 $ cp .env.example .env
+```
 #### connect to your DB into .env file
+```bash
 $ php artisan key:generate
+```
+```bash
 $ php artisan migrate: --seed
-
+```
 
 - Front end
-$ cd ./client
-$ npm install
-$ ng serve
 
+```bash
+$ cd ./client
+```
+```bash
+$ npm install
+```
+```bash
+$ ng serve
+```
 
 
 ## Admin
-email : admin@admin.com
-password: admin
+- email : admin@admin.com
+- password: admin
