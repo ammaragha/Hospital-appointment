@@ -13,6 +13,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
 import { AuthInterceptor } from './services/authService/auth.interceptor';
 import { AdminResComponent } from './pages/admin-res/admin-res.component';
+import { WelocmeComponent } from './pages/home/welocme/welocme.component';
 
 
 
@@ -23,7 +24,8 @@ import { AdminResComponent } from './pages/admin-res/admin-res.component';
     RegisterComponent,
     HeaderComponent,
     ReservationsComponent,
-    AdminResComponent
+    AdminResComponent,
+    WelocmeComponent
   ],
   imports: [
     BrowserModule,

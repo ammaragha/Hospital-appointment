@@ -5,11 +5,13 @@ import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AdminResComponent } from './pages/admin-res/admin-res.component';
+import { WelocmeComponent } from './pages/home/welocme/welocme.component';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
 
 
 
 const routes: Routes = [
+  { path: '', component: WelocmeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'reservation', component: ReservationsComponent, canActivate: [AuthGuard] },
