@@ -4,7 +4,9 @@
 
 ## How to run
 - Back end 
+```bash
 $ cd ./server
+```
 $ composer install
 $ cp .env.example .env
 #### connect to your DB into .env file
