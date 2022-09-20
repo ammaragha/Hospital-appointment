@@ -13,12 +13,12 @@ $ composer install
 ```bash
 $ cp .env.example .env
 ```
-#### connect to your DB into .env file
+connect to your DB into .env file
 ```bash
 $ php artisan key:generate
 ```
 ```bash
-$ php artisan migrate: --seed
+$ php artisan migrate --seed
 ```
 
 - Front end
