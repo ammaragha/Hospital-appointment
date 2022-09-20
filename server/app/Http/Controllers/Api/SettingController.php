@@ -15,8 +15,8 @@ class SettingController extends Controller
     public function getWorkTime()
     {
         $worktime = Setting::whereIn('slg', ['start_time', 'end_time'])->get()->toArray();
-        $start_time = date("h:i A", strtotime($this->getWithSlg($worktime, 'start_time')));
-        $end_time = date("h:i A", strtotime($this->getWithSlg($worktime, 'end_time')));
+        $start_time = date("H:i", strtotime($this->getWithSlg($worktime, 'start_time')));
+        $end_time = date("H:i", strtotime($this->getWithSlg($worktime, 'end_time')));
 
         return $this->succWithData([
             'start_time' => $start_time, 'end_time' => $end_time

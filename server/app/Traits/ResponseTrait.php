@@ -24,7 +24,7 @@ trait ResponseTrait
         return response()->json([
             'success' => false,
             'message' => $msg
-        ], 500);
+        ], 401);
     }
 
     /**

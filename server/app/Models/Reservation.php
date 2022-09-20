@@ -21,6 +21,6 @@ class Reservation extends Model
 
     public function speciality()
     {
-        return $this->belongsTo(Speciality::class,'sepcial_id');
+        return $this->belongsTo(Speciality::class,'special_id');
     }
 }

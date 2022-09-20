@@ -30,7 +30,7 @@ class ReservationRequest extends FormRequest
         $worktime = json_decode($response->getContent())->data;
 
         return [
-            'time'=> ['required','date_format:h:i A',"after:{$worktime->start_time}","before:{$worktime->end_time}"],
+            'time'=> ['required','date_format:H:i',"after:{$worktime->start_time}","before:{$worktime->end_time}"],
             'date'=> ['required','date_format:Y-m-d','after:yesterday'],
             'special_id'=> ['required','exists:specialities,id'],
         ];
